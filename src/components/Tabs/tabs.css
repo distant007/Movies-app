@@ -1,0 +1,31 @@
+.tabs {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-top: 32px;
+}
+.tabs-search,
+.tabs-rated {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+}
+.active {
+  color: #1890ff;
+}
+.ant-tabs-content {
+  display: none;
+}
+.ant-tabs {
+  align-items: center;
+}
+.ant-tabs-top > .ant-tabs-nav {
+  margin: 0;
+}

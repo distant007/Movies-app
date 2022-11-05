@@ -1,0 +1,12 @@
+.main {
+  margin: 0 auto;
+  padding-left: 36px;
+  padding-right: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.ant-pagination {
+  display: flex;
+  justify-content: center;
+}
