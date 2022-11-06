@@ -4,23 +4,24 @@ import React from "react";
 import "./movie.css";
 export default class Movie extends React.Component {
   state = {
-  text: this.kitcut(this.props.item.overview, 111)
-  }
+    text: this.kitcut(this.props.item.overview, 111),
+  };
   kitcut(text, limit) {
     text = text.trim();
-    if( text.length <= limit) return text;
-  
+    if (text.length <= limit) return text;
+
     text = text.slice(0, limit);
-  
+
     return text.trim() + "...";
   }
   render() {
     const { item } = this.props;
     const date = format(new Date(item.release_date), "MMMM d, yyyy");
+    const urlImg = `https://image.tmdb.org/t/p/original${item.poster_path}`;
     return (
       <div className="movie">
         <div className="left-side">
-          <img className="movie-img" src="#" alt="#" />
+          <img className="movie-img" src={urlImg} alt="#" />
         </div>
         <div className="right-side">
           <h2 className="movie-title">{item.original_title}</h2>

@@ -11,14 +11,19 @@ export default class MovieList extends React.Component {
     todoData: null,
     loading: true,
     error: false,
+    currpage: null,
   };
-  constructor() {
-    super();
+  componentDidMount() {
     this.getTodoData();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.currpage !== prevProps.currpage) {
+      this.getTodoData();
+    }
   }
   setTodoData(data) {
     this.setState({
-      todoData: data.results,
+      todoData: data,
       loading: false,
     });
   }
@@ -29,8 +34,12 @@ export default class MovieList extends React.Component {
     });
   }
   getTodoData() {
+    const { currpage } = this.props;
+    if (!currpage) {
+      return;
+    }
     this.fetchApi
-      .componentDidMount()
+      .getInfoMovie(currpage)
       .then((data) => this.setTodoData(data))
       .catch(this.onError);
   }
@@ -46,7 +55,7 @@ export default class MovieList extends React.Component {
     return (
       <ul className="movies-list">
         {todoData.map((item) => (
-          <li key={item.id}>
+          <li key={item.id} id={item.id}>
             <Movie item={item} />
           </li>
         ))}
