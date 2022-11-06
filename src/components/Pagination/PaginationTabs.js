@@ -1,6 +1,6 @@
 import { Pagination } from "antd";
-import React from "react";
-export default class PaginationTabs extends React.Component {
+import { Component } from "react";
+export default class PaginationTabs extends Component {
   onChange = (page) => {
     console.log(page);
   };

@@ -1,10 +1,10 @@
 import { Rate } from "antd";
 import { format } from "date-fns";
-import React from "react";
+import { Component } from "react";
 import "./movie.css";
-export default class Movie extends React.Component {
+export default class Movie extends Component {
   state = {
-    text: this.kitcut(this.props.item.overview, 111),
+    text: this.kitcut(this.props.text, 111),
   };
   kitcut(text, limit) {
     text = text.trim();
@@ -15,28 +15,23 @@ export default class Movie extends React.Component {
     return text.trim() + "...";
   }
   render() {
-    const { item } = this.props;
-    const date = format(new Date(item.release_date), "MMMM d, yyyy");
-    const urlImg = `https://image.tmdb.org/t/p/original${item.poster_path}`;
+    const { date, title, voteAverage, posterPath } = this.props;
+    const MovieDate = format(new Date(date), "MMMM d, yyyy");
+    const urlImg = `https://image.tmdb.org/t/p/original${posterPath}`;
     return (
       <div className="movie">
         <div className="left-side">
           <img className="movie-img" src={urlImg} alt="#" />
         </div>
         <div className="right-side">
-          <h2 className="movie-title">{item.original_title}</h2>
-          <p className="movie-date">{date}</p>
+          <h2 className="movie-title">{title}</h2>
+          <p className="movie-date">{MovieDate}</p>
           <div className="movie-genre-block">
             <div className="movie-genre">Action</div>
             <div className="movie-genre">Drama</div>
           </div>
           <p className="movie-discription">{this.state.text}</p>
-          <Rate
-            disabled
-            allowHalf
-            defaultValue={item.vote_average}
-            count={10}
-          />
+          <Rate disabled allowHalf defaultValue={voteAverage} count={10} />
         </div>
       </div>
     );

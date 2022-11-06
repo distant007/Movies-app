@@ -1,14 +1,16 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import React from "react";
-
+import "./loading.css";
 const antIcon = (
-  <LoadingOutlined
-    style={{
-      fontSize: 24,
-    }}
-    spin
-  />
+  <div className="loading">
+    <LoadingOutlined
+      style={{
+        fontSize: 60,
+      }}
+      spin
+    />
+  </div>
 );
 
 const Loading = () => <Spin indicator={antIcon} />;

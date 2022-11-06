@@ -1,4 +1,4 @@
-import React from "react";
+import { Component } from "react";
 
 import MoviesList from "../MoviesList";
 import Input from "../Input";
@@ -6,7 +6,7 @@ import TabsItems from "../Tabs";
 import PaginationTabs from "../Pagination";
 import "./app.css";
 import "antd/dist/antd.css";
-export default class App extends React.Component {
+export default class App extends Component {
   state = {
     currpage: 1,
   };
