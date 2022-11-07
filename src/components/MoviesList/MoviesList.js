@@ -20,11 +20,15 @@ export default class MovieList extends Component {
     if (this.props.currpage !== prevProps.currpage) {
       this.getTodoData();
     }
+    if (this.props.searchValue !== prevProps.searchValue) {
+      this.getTodoData();
+    }
   }
   setTodoData(data) {
     this.setState({
       movieData: data,
       loading: false,
+      error: false,
     });
   }
   loadingCurrPage() {
@@ -37,13 +41,13 @@ export default class MovieList extends Component {
     });
   };
   getTodoData() {
-    const { currpage } = this.props;
+    const { currpage, searchValue } = this.props;
     if (!currpage) {
       return;
     }
     this.loadingCurrPage();
     this.fetchApi
-      .getInfoMovie(currpage)
+      .getInfoMovie(currpage, searchValue)
       .then((data) => this.setTodoData(data))
       .catch(this.onError);
   }

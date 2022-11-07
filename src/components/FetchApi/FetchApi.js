@@ -9,23 +9,17 @@ export default class FetchApi {
     }
     return await res.json();
   }
-  async getInfoMovie(currpage) {
+  async getInfoMovie(currpage, searchValue) {
     const res = await this.getApi(
-      `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=return&page=${currpage}&include_adult=false`
+      `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=${searchValue}&page=${currpage}&include_adult=false`
     );
     console.log(res);
     return res.results;
   }
-  async getTotalMovies(currpage) {
+  async getTotalMovies(currpage, searchValue) {
     const res = await this.getApi(
-      `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=return&page=${currpage}&include_adult=false`
+      `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=${searchValue}&page=${currpage}&include_adult=false`
     );
     return res.total_results;
-  }
-  async getSearchMovies(currpage) {
-    const res = await this.getApi(
-      `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=${searchInput}&page=${currpage}&include_adult=false`
-    );
-    return res.results;
   }
 }

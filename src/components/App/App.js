@@ -9,18 +9,30 @@ import "antd/dist/antd.css";
 export default class App extends Component {
   state = {
     currpage: 1,
+    searchValue: "return",
   };
   onChangePage = (page) => {
     this.setState({ currpage: page });
   };
+  searchMovies = (value) => {
+    if (value.target.value) {
+      this.setState({ searchValue: value.target.value });
+    } else {
+      this.setState({ searchValue: "return" });
+    }
+  };
   render() {
-    const { currpage } = this.state;
+    const { currpage, searchValue } = this.state;
     return (
       <section className="main">
         <TabsItems />
-        <Input />
-        <MoviesList currpage={currpage} />
-        <PaginationTabs currpage={currpage} onChangePage={this.onChangePage} />
+        <Input searchMovies={this.searchMovies} />
+        <MoviesList currpage={currpage} searchValue={searchValue} />
+        <PaginationTabs
+          currpage={currpage}
+          onChangePage={this.onChangePage}
+          searchValue={searchValue}
+        />
       </section>
     );
   }
