@@ -1,6 +1,7 @@
 import { Rate } from "antd";
 import { format } from "date-fns";
 import { Component } from "react";
+import movieDefault from "../images/movie.jpg";
 import "./movie.css";
 export default class Movie extends Component {
   state = {
@@ -16,8 +17,12 @@ export default class Movie extends Component {
   }
   render() {
     const { date, title, voteAverage, posterPath } = this.props;
-    const MovieDate = format(new Date(date), "MMMM d, yyyy");
-    const urlImg = `https://image.tmdb.org/t/p/original${posterPath}`;
+    let MovieDate =
+      date !== "" ? format(new Date(date), "MMMM d, yyyy") : "There is no date";
+    const urlImg =
+      posterPath !== null
+        ? `https://image.tmdb.org/t/p/original${posterPath}`
+        : movieDefault;
     return (
       <div className="movie">
         <div className="left-side">
