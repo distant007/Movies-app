@@ -14,7 +14,7 @@ export default class FetchApi {
       `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=${searchValue}&page=${currpage}&include_adult=false`
     );
     console.log(res);
-    return res.results;
+    return res;
   }
   async getTotalMovies(currpage, searchValue) {
     const res = await this.getApi(

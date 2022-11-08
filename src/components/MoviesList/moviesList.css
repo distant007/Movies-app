@@ -1,7 +1,8 @@
-.movies-list{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 32px 36px;
+.movies-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px 36px;
+  padding-bottom: 32px;
 }

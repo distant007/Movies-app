@@ -4,6 +4,7 @@ import Movie from "../Movie";
 import Loading from "../Loading";
 import FetchApi from "../FetchApi";
 import ErrorIndicator from "../ErrorIndicator";
+import PaginationTabs from "../Pagination";
 import "./moviesList.css";
 export default class MovieList extends Component {
   fetchApi = new FetchApi();
@@ -11,24 +12,26 @@ export default class MovieList extends Component {
     movieData: null,
     loading: true,
     error: false,
-    currpage: null,
+    currpage: 1,
+    totalMovies: null,
   };
   componentDidMount() {
     this.getTodoData();
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.currpage !== prevProps.currpage) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currpage !== prevState.currpage) {
       this.getTodoData();
     }
     if (this.props.searchValue !== prevProps.searchValue) {
       this.getTodoData();
     }
   }
-  setTodoData(data) {
+  setTodoData(data, total) {
     this.setState({
       movieData: data,
       loading: false,
       error: false,
+      totalMovies: total,
     });
   }
   loadingCurrPage() {
@@ -41,28 +44,39 @@ export default class MovieList extends Component {
     });
   };
   getTodoData() {
-    const { currpage, searchValue } = this.props;
+    const { searchValue } = this.props;
+    const { currpage } = this.state;
     if (!currpage) {
       return;
     }
     this.loadingCurrPage();
     this.fetchApi
       .getInfoMovie(currpage, searchValue)
-      .then((data) => this.setTodoData(data))
+      .then((data) => this.setTodoData(data.results, data.total_results))
       .catch(this.onError);
   }
-
+  onChangePage = (page) => {
+    this.setState({ currpage: page });
+  };
   render() {
-    const { movieData, loading, error } = this.state;
+    const { movieData, loading, error, currpage, totalMovies } = this.state;
     const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loading ? <Loading /> : null;
     const view = !(loading || error) ? <View movieData={movieData} /> : null;
+    const pagination = !(loading || error) ? (
+      <Pagination
+        currpage={currpage}
+        onChangePage={this.onChangePage}
+        totalMovies={totalMovies}
+      />
+    ) : null;
     return (
-      <ul className="movies-list">
+      <div className="main-content">
         {errorMessage}
         {spinner}
         {view}
-      </ul>
+        {pagination}
+      </div>
     );
   }
 }
@@ -78,5 +92,14 @@ const View = ({ movieData }) => {
       />
     </li>
   ));
-  return view;
+  return <ul className="movies-list">{view}</ul>;
+};
+const Pagination = ({ currpage, onChangePage, totalMovies }) => {
+  return (
+    <PaginationTabs
+      currpage={currpage}
+      onChangePage={onChangePage}
+      totalMovies={totalMovies}
+    />
+  );
 };
