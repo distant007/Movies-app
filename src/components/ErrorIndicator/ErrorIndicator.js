@@ -1,5 +1,5 @@
-import { Alert } from "antd";
-import React from "react";
+import { Alert } from 'antd'
+import React from 'react'
 const ErrorIndicator = () => (
   <>
     <Alert message="Error" type="error" showIcon />
@@ -10,5 +10,5 @@ const ErrorIndicator = () => (
       showIcon
     />
   </>
-);
-export default ErrorIndicator;
+)
+export default ErrorIndicator

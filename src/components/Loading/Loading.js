@@ -1,7 +1,7 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
-import React from "react";
-import "./loading.css";
+import { LoadingOutlined } from '@ant-design/icons'
+import { Spin } from 'antd'
+import React from 'react'
+import './loading.css'
 const antIcon = (
   <div className="loading">
     <LoadingOutlined
@@ -11,7 +11,7 @@ const antIcon = (
       spin
     />
   </div>
-);
+)
 
-const Loading = () => <Spin indicator={antIcon} />;
-export default Loading;
+const Loading = () => <Spin indicator={antIcon} />
+export default Loading

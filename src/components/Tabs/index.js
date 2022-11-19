@@ -1,2 +1,2 @@
-import TabsItems from "./Tabs";
-export default TabsItems;
+import TabsItems from './Tabs'
+export default TabsItems

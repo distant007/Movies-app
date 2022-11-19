@@ -5,6 +5,7 @@
   flex-direction: row;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  position: relative;
 }
 .left-side {
   width: 40%;
@@ -28,6 +29,7 @@
   font-size: 20px;
   line-height: 28px;
   color: #000000;
+  padding-right: 40px;
 }
 .movie-date {
   font-family: "Inter";
@@ -61,6 +63,7 @@
 .movie-genre-block {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
 }
 li .ant-rate-star:not(:last-child) {
@@ -68,4 +71,24 @@ li .ant-rate-star:not(:last-child) {
 }
 ul .ant-rate {
   font-size: 18px;
+  position: absolute;
+  bottom: 15px;
+}
+.rating{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  border: 2px solid #E9D100;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  justify-content: center;
 }

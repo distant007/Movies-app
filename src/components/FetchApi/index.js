@@ -1,2 +1,2 @@
-import FetchApi from "./FetchApi";
-export default FetchApi;
+import FetchApi from './FetchApi'
+export default FetchApi

@@ -1,2 +1,2 @@
-import PaginationTabs from "./PaginationTabs";
-export default PaginationTabs;
+import PaginationTabs from './PaginationTabs'
+export default PaginationTabs

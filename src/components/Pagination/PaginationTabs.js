@@ -1,9 +1,9 @@
-import { Pagination } from "antd";
-import { Component } from "react";
+import { Pagination } from 'antd'
+import { Component } from 'react'
 export default class PaginationTabs extends Component {
   render() {
-    const { currpage, onChangePage, totalMovies } = this.props;
-    const togglePagination = totalMovies ? false : true;
+    const { currpage, onChangePage, totalMovies } = this.props
+    const togglePagination = totalMovies ? false : true
     return (
       <Pagination
         current={currpage}
@@ -13,6 +13,6 @@ export default class PaginationTabs extends Component {
         disabled={togglePagination}
         showSizeChanger={false}
       />
-    );
+    )
   }
 }
