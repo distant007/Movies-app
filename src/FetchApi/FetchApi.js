@@ -1,6 +1,6 @@
 export default class FetchApi {
   _apiBase = 'https://api.themoviedb.org/3'
-  _apiKey = 'api_key=12c052732f00500a4355cf2bf4538874'
+  _apiKey = `api_key=${process.env.REACT_APP_API_KEY}`
 
   async getApi(url) {
     const res = await fetch(url)
@@ -13,7 +13,6 @@ export default class FetchApi {
     const res = await this.getApi(
       `${this._apiBase}/search/movie?${this._apiKey}&language=en-US&query=${searchValue}&page=${currpage}&include_adult=false`
     )
-    // console.log(res);
     return res
   }
   async getTotalMovies(currpage, searchValue) {
@@ -36,5 +35,17 @@ export default class FetchApi {
   async getGenre() {
     const res = await this.getApi(`${this._apiBase}/genre/movie/list?${this._apiKey}&language=en-US`)
     return res
+  }
+  async postRateMovies(value, movieId, guestId) {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=12c052732f00500a4355cf2bf4538874&guest_session_id=${guestId}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          value: value,
+        }),
+        headers: { 'content-type': 'application/json;charset=utf-8' },
+      }
+    )
   }
 }

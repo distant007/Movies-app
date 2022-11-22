@@ -2,7 +2,7 @@ import { Component } from 'react'
 
 import Movie from '../Movie'
 import Loading from '../Loading'
-import FetchApi from '../FetchApi'
+import FetchApi from '../../FetchApi'
 import ErrorIndicator from '../ErrorIndicator'
 import PaginationTabs from '../Pagination'
 import './moviesList.css'
@@ -33,7 +33,15 @@ export default class MovieList extends Component {
     }
   }
   authentication = () => {
-    this.fetchApi.authentication().then((res) => this.setState({ guestId: res }))
+    this.fetchApi.authentication().then((res) => {
+      const guestId = localStorage.getItem('guestId')
+      if (guestId) {
+        this.setState({ guestId: guestId })
+      } else {
+        localStorage.setItem('guestId', res)
+        this.setState({ guestId: res })
+      }
+    })
   }
   setTodoData(data, total) {
     this.setState({

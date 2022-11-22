@@ -1,18 +1,22 @@
+/* eslint-disable indent */
 /* eslint-disable prettier/prettier */
 import { Rate } from 'antd'
 import { format } from 'date-fns'
 import { Component } from 'react'
 
+import FetchApi from '../../FetchApi'
 import movieDefault from '../../images/movie.jpg'
 import { Consumer } from '../MovieServiceContext'
 import './movie.css'
 export default class Movie extends Component {
+  fetchApi = new FetchApi()
   state = {
     text: this.kitcut(this.props.text, 111),
-    rate: this.props.voteAverage,
+    rate: null,
   }
   componentDidMount() {
     this.getCurrGenres()
+    this.setRatedMovies()
   }
   kitcut(text, limit) {
     text = text.trim()
@@ -24,18 +28,17 @@ export default class Movie extends Component {
   }
   postRate = (value) => {
     const { movieId, guestId } = this.props
-
     this.setState({ rate: value })
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=12c052732f00500a4355cf2bf4538874&guest_session_id=${guestId}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          value: value,
-        }),
-        headers: { 'content-type': 'application/json;charset=utf-8' },
-      }
-    )
+    this.fetchApi.postRateMovies(value, movieId, guestId)
+    localStorage.setItem(`${movieId}`, value)
+  }
+  setRatedMovies() {
+    const { movieId } = this.props
+    const rate = localStorage.getItem(`${movieId}`)
+    if (rate !== null && rate !== 'undefined') {
+      // let newRate = Number(rate)
+      this.setState({ rate: rate })
+    }
   }
   getCurrGenres = () => {
     return (
@@ -54,16 +57,16 @@ export default class Movie extends Component {
     )
   }
   render() {
-    const { date, title, posterPath, voteAverage } = this.props
+    const { date, title, posterPath } = this.props
     const { rate } = this.state
     const colorRate =
       rate <= 3
         ? { borderColor: '#E90000' }
         : rate <= 5
-          ? { borderColor: '#E97E00' }
-          : rate <= 7
-            ? { borderColor: '#E9D100' }
-            : { borderColor: '#66E900' }
+        ? { borderColor: '#E97E00' }
+        : rate <= 7
+        ? { borderColor: '#E9D100' }
+        : { borderColor: '#66E900' }
     let MovieDate = date !== '' ? format(new Date(date), 'MMMM d, yyyy') : 'There is no date'
     const urlImg = posterPath !== null ? `https://image.tmdb.org/t/p/original${posterPath}` : movieDefault
     return (
@@ -79,7 +82,7 @@ export default class Movie extends Component {
           <p className="movie-date">{MovieDate}</p>
           {this.getCurrGenres()}
           <p className="movie-discription">{this.state.text}</p>
-          <Rate allowHalf count={10} onChange={this.postRate} defaultValue={voteAverage} />
+          <Rate allowHalf count={10} onChange={this.postRate} value={Number(rate)} />
         </div>
       </div>
     )

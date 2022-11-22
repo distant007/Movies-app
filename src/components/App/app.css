@@ -10,3 +10,8 @@
   display: flex;
   justify-content: center;
 }
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

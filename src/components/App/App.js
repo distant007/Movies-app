@@ -4,7 +4,7 @@ import { Offline, Online } from 'react-detect-offline'
 import MoviesList from '../MoviesList'
 import Input from '../Input'
 import TabsItems from '../Tabs'
-import FetchApi from '../FetchApi'
+import FetchApi from '../../FetchApi'
 import { Provider } from '../MovieServiceContext'
 import './app.css'
 import 'antd/dist/antd.css'
@@ -34,6 +34,7 @@ export default class App extends Component {
   getGenre = () => {
     this.FetchApi.getGenre().then((res) => this.setGenre(res.genres))
   }
+
   render() {
     const { currpage, searchValue, tab, valuesGenre } = this.state
     const input = tab === 'Search' ? <Input searchMovies={this.searchMovies} /> : null
